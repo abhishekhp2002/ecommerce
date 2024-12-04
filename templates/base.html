@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>{% block title %}{% endblock title %}</title>
+  <meta name="description" content="ecommerce website we deliver in one hour">
+  <meta name="keywords" content="ecommerce, online shopping, products">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static '/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static '/assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- Custom Style for Classy Look -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .sitename a {
+      text-decoration: none;
+      color: #333;
+      font-size: 30px;
+      font-weight: 600;
+    }
+
+    .header {
+      background-color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 15px 0;
+    }
+
+    #navmenu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    #navmenu ul li {
+      margin: 0 15px;
+    }
+
+    #navmenu ul li a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    #navmenu ul li a:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .hero {
+      /*background-image: url("{% static 'assets/img/hero-bg.jpg' %}")*/
+      background-color:black;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 50px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      font-weight: 300;
+      color: #f0f0f0;
+      margin-bottom: 40px;
+    }
+
+    .hero .btn-primary {
+      background-color: #007bff;
+      border: none;
+      padding: 12px 25px;
+      font-size: 18px;
+      border-radius: 50px;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 30px 0;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body class="index-page">
+
+  <!-- Header -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="/" class="logo d-flex align-items-center">
+        <h1 class="sitename"><a href="/">Abhi Cart</a></h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="/" class="active">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/profile">My Profile</a></li>
+          <button type="button" 
+              class="btn btn-danger px-4 py-2 rounded-pill shadow-sm position-relative" 
+              id="popcart" 
+              data-container="body" 
+              data-toggle="popover" 
+              data-placement="bottom" 
+              data-html="true">
+        <i class="bi bi-cart"></i> Cart 
+        <span class="badge bg-light text-dark position-absolute top-0 start-100 translate-middle rounded-pill" id="cart">0</span>
+      </button>
+
+          
+          {% if request.user.is_authenticated %}
+          <li><a href="/auth/logout/">LogOut</a></li>
+          {% else %}
+          <li class="dropdown"><a href="#"><span>SignIn</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="/auth/signup">SignUp</a></li>
+              <li><a href="/auth/login">LogIn</a></li>
+            </ul>
+          </li>
+          {% endif %}
+          
+          <li><a class="bg-success p-3 m-2" href="/contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            {% block content %}{% endblock content %}
+          </div>
+        </div>
+      </div>
+    </section><!-- /Hero Section -->
+
+    {% block body %}
+    {% endblock body %}
+
+  </main>
+
+  
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static '/assets/vendor/bootstrap/js/bootstrap.bundle.min.js ' %}"></script>
+  <script src="{% static '/assets/vendor/php-email-form/validate.js ' %}"></script>
+  <script src="{% static '/assets/vendor/aos/aos.js ' %}"></script>
+  <script src="{% static '/assets/vendor/glightbox/js/glightbox.min.js ' %}"></script>
+  <script src="{% static '/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js ' %}"></script>
+  <script src="{% static '/assets/vendor/isotope-layout/isotope.pkgd.min.js ' %}"></script>
+  <script src="{% static '/assets/vendor/swiper/swiper-bundle.min.js ' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static '/assets/js/main.js ' %}"></script>
+
+</body>
+
+</html>

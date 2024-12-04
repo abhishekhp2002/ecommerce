@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Profile Page{% endblock title %}
+{% block content %}
+
+<h1 class="text-center my-5">My Profile</h1>
+
+{% endblock content %}
+{% block body %}
+<section id="portfolio" class="portfolio">
+    <div class="container">
+        <!--<h1 class="text-center mb-4">My Profile</h1>-->
+
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Products</th>
+                    <th scope="col">Amount Paid</th>
+                    <th scope="col">Payment Status</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Delivery Status</th>
+                    <th scope="col">Delivered</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if order_details %}
+                    {% for order in order_details %}
+                        <tr>
+                            <th scope="row">{{ order.order.oid }}</th>
+                            <td>{{ order.order.name }}</td>
+                            <td>{{ order.order.items_json }}</td>
+                            <td>${{ order.order.amountpaid }}</td>
+                            <td>{{ order.order.paymentstatus }}</td>
+                            <td>{{ order.order.address1 }}</td>
+                            <td>{{ order.order.phone }}</td>
+
+                            {% if order.status %}
+                                <td>
+                                    {% for update in order.status %}
+                                        <span class="text-muted">{{ update.update_desc }}</span><br>
+                                    {% endfor %}
+                                </td>
+
+                                <td>
+                                    {% for update in order.status %}
+                                        {% if update.delivered %}
+                                            <i class="fa fa-check-circle text-success" title="Delivered">✅ Delivered</i> 
+                                        {% else %}
+                                            <i class="fa fa-truck text-warning" title="Not Delivered">🚚 Not Delivered</i> 
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+
+                                <td>
+                                    {% for update in order.status %}
+                                        <div class="text-muted">{{ update.timestamp }}</div>
+                                    {% endfor %}
+                                </td>
+                            {% else %}
+                                <td>No updates available</td>
+                                <td>
+                                    <i class="fa fa-truck text-warning" title="Not Delivered"></i> 
+                                </td>
+                                <td>No date</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="10" class="text-center text-danger">You have no orders.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock body %}
