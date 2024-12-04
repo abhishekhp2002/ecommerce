@@ -30,5 +30,5 @@ Make sure you have the following installed:
 
 ### Working Video
 
-Uploading Workin_video.mp4…
+
 
